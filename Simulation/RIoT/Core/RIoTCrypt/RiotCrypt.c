@@ -447,8 +447,14 @@ RiotCrypt_SignDigest(
     }
 
     // need to init dst mpi values
+#if 0
     mbedtls_mpi_free(&sig->r);
     mbedtls_mpi_free(&sig->s);
+#else
+    // phchen9: init mpi
+    mbedtls_mpi_init(&sig->r);
+    mbedtls_mpi_init(&sig->s);
+#endif
 
     // Sign digest
     status = mbedtls_ecdsa_sign(&ecp_grp_internal, &sig->r, &sig->s, key, digest, digestSize,
